@@ -1,0 +1,101 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".htaccess",
+      ".git/**",
+      "**/node_modules/**"
+    ],
+    "trailingSlash": false,
+    "redirects": [
+      {
+        "source": "/index.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "regex": "^/quem-somos/?$",
+        "destination": "/#sobre",
+        "type": 301
+      },
+      {
+        "regex": "^/(contato|trabalhe-conosco)/?$",
+        "destination": "/#contato",
+        "type": 301
+      },
+      {
+        "regex": "^/(engenharia|arquitetura|instalacoes|infraestrutura|manutencao)/?$",
+        "destination": "/#servicos",
+        "type": 301
+      },
+      {
+        "regex": "^/(cases|clientes)(/.*)?$",
+        "destination": "/#portfolio",
+        "type": 301
+      },
+      {
+        "regex": "^/(blog|category|author|tag)(/.*)?$",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "regex": "^/(retrofit-quando-modernizar-vale-mais-do-que-construir|top-5-materiais-sustentaveis-na-construcao-moderna|arquitetura-minimalista-para-espacos-corporativos|compatibilizacao-de-projetos-o-custo-de-nao-fazer)/?$",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "regex": "^/(sitemap_index|post-sitemap|page-sitemap|category-sitemap|author-sitemap)\\.xml$",
+        "destination": "/sitemap.xml",
+        "type": 301
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(avif|webp|png|jpg|jpeg|svg|ico|woff2)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=604800"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(css|js)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "/404.html",
+        "headers": [
+          {
+            "key": "X-Robots-Tag",
+            "value": "noindex"
+          }
+        ]
+      },
+      {
+        "source": "/llms.txt",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/plain; charset=utf-8"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/*.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json; charset=utf-8"
+          }
+        ]
+      }
+    ]
+  }
+}

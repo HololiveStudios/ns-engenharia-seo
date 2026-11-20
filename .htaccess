@@ -1,0 +1,43 @@
+# Use este arquivo SOMENTE se a hospedagem for Apache (cPanel/Hostinger etc.).
+# Em Firebase Hosting use o firebase.json.
+RewriteEngine On
+
+# 1) URLs antigas do WordPress -> seção equivalente (301, um salto só)
+RewriteRule ^quem-somos/?$ https://nsengenharia.com.br/#sobre [R=301,L,NE]
+RewriteRule ^(contato|trabalhe-conosco)/?$ https://nsengenharia.com.br/#contato [R=301,L,NE]
+RewriteRule ^(engenharia|arquitetura|instalacoes|infraestrutura|manutencao)/?$ https://nsengenharia.com.br/#servicos [R=301,L,NE]
+RewriteRule ^(cases|clientes)(/.*)?$ https://nsengenharia.com.br/#portfolio [R=301,L,NE]
+RewriteRule ^(blog|category|author|tag)(/.*)?$ https://nsengenharia.com.br/ [R=301,L]
+RewriteRule ^(retrofit-quando-modernizar-vale-mais-do-que-construir|top-5-materiais-sustentaveis-na-construcao-moderna|arquitetura-minimalista-para-espacos-corporativos|compatibilizacao-de-projetos-o-custo-de-nao-fazer)/?$ https://nsengenharia.com.br/ [R=301,L]
+RewriteRule ^(sitemap_index|post-sitemap|page-sitemap|category-sitemap|author-sitemap)\.xml$ https://nsengenharia.com.br/sitemap.xml [R=301,L]
+
+# 2) HTTPS + domínio sem www (301)
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://nsengenharia.com.br%{REQUEST_URI} [L,R=301]
+
+# 3) /index.html -> /
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]
+RewriteRule ^index\.html$ / [L,R=301]
+
+# Páginas de erro (404 e 410 usam a mesma página)
+ErrorDocument 404 /404.html
+ErrorDocument 410 /404.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  <Files "404.html">
+    Header set X-Robots-Tag "noindex"
+  </Files>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/avif "access plus 7 days"
+  ExpiresByType image/webp "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 7 days"
+  ExpiresByType image/png "access plus 7 days"
+  ExpiresByType text/css "access plus 1 day"
+  ExpiresByType application/javascript "access plus 1 day"
+</IfModule>
